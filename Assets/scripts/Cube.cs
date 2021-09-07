@@ -3,6 +3,15 @@ using UnityEngine;
 public class Cube : MonoBehaviour {
 
     private Vector3 startPosition = new Vector3(0, 0, 0);
+    
+    /*
+        10 0 0 0
+        0 10 0 0
+        0 0 10 0
+        0 0 0 10
+
+        diagonal: is the scale part, leave unchanged for the same size cube
+    */
     public Matrix4x4 matrix;
  
     // Start is called before the first frame update
@@ -18,7 +27,7 @@ public class Cube : MonoBehaviour {
         {
             transform.position = startPosition;
         }
-        
+
         transform.FromMatrix(matrix);
     }
 }
@@ -56,6 +65,6 @@ public static class TransformExtensions {
     public static void FromMatrix(this Transform transform, Matrix4x4 matrix) {
         transform.rotation = matrix.ExtractRotation();
         transform.position = matrix.ExtractPosition();
-        // transform.localScale = matrix.ExtractScale();
+        transform.localScale = matrix.ExtractScale();
     }
 }
