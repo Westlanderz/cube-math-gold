@@ -8,7 +8,7 @@ public class Cube : MonoBehaviour {
         10 0 0 0
         0 10 0 0
         0 0 10 0
-        0 0 0 10
+        0 0 0 1
 
         diagonal: is the scale part, leave unchanged for the same size cube
     */
