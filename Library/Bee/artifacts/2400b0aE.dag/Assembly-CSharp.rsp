@@ -376,6 +376,9 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
 "Assets/scripts/Cube.cs"
+"Assets/scripts/ITransformable.cs"
+"Assets/scripts/MatrixExtensions.cs"
+"Assets/scripts/TransformExtensions.cs"
 -langversion:9.0
 
 /deterministic
