@@ -107,4 +107,32 @@ public static class Matrix4x4Extensions {
         result = matrix1.Multiply(matrix2);
         return result.Multiply(matrix3);
     }
+
+    public static bool Equals(this Matrix4x4 matrix1, Matrix4x4 matrix2) {
+                return (matrix1.m00 == matrix2.m00 && matrix1.m01 == matrix2.m01 && matrix1.m02 == matrix2.m02 && matrix1.m03 == matrix2.m03
+                && matrix1.m10 == matrix2.m10 && matrix1.m11 == matrix2.m11 && matrix1.m12 == matrix2.m12 && matrix1.m13 == matrix2.m13
+                && matrix1.m20 == matrix2.m20 && matrix1.m21 == matrix2.m21 && matrix1.m22 == matrix2.m22 && matrix1.m23 == matrix2.m23
+                && matrix1.m30 == matrix2.m30 && matrix1.m31 == matrix2.m31 && matrix1.m32 == matrix2.m32 && matrix1.m33 == matrix2.m33);
+    }
+
+    public static Matrix4x4 Transpose(this Matrix4x4 matrix) {
+        Matrix4x4 result;
+        result.m00 = matrix.m00;
+        result.m01 = matrix.m10;
+        result.m02 = matrix.m20;
+        result.m03 = matrix.m30;
+        result.m10 = matrix.m01;
+        result.m11 = matrix.m11;
+        result.m12 = matrix.m21;
+        result.m13 = matrix.m31;
+        result.m20 = matrix.m02;
+        result.m21 = matrix.m12;
+        result.m22 = matrix.m22;
+        result.m23 = matrix.m32;
+        result.m30 = matrix.m03;
+        result.m31 = matrix.m13;
+        result.m32 = matrix.m23;
+        result.m33 = matrix.m33;
+        return result;
+    }
 }
