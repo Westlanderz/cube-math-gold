@@ -12,25 +12,6 @@ public static class Matrix4x4Extensions {
                              new Vector4(position.x, position.y, position.z, 1));
     }
 
-    public static Matrix4x4 GetScaleMatrix(Vector3 scale) {
-        return new Matrix4x4(new Vector4(scale.x, 0, 0, 0),
-                             new Vector4(0, scale.y, 0, 0),
-                             new Vector4(0, 0, scale.z, 0),
-                             new Vector4(0, 0, 0, 1));
-    }
-
-    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Vector3 axis, float angle, Vector3 scale) {
-        Matrix4x4 m = new Matrix4x4();
-        m = GetTranslationMatrix(position).Multiply(SetRotation(axis, angle), GetScaleMatrix(scale));
-        return m;
-    }
-
-    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Matrix4x4 rotaion, Vector3 scale) {
-        Matrix4x4 m = new Matrix4x4();
-        m = GetTranslationMatrix(position).Multiply(rotaion, GetScaleMatrix(scale));
-        return m;
-    }
-
     public static Matrix4x4 SetRotation(Vector3 axis, float angle) {
         // rotaion matrix from axis-angle
         Matrix4x4 R = new Matrix4x4();
@@ -60,6 +41,25 @@ public static class Matrix4x4Extensions {
         R.m33 = 1;
         
         return R;
+    }
+
+    public static Matrix4x4 GetScaleMatrix(Vector3 scale) {
+        return new Matrix4x4(new Vector4(scale.x, 0, 0, 0),
+                             new Vector4(0, scale.y, 0, 0),
+                             new Vector4(0, 0, scale.z, 0),
+                             new Vector4(0, 0, 0, 1));
+    }
+
+    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Vector3 axis, float angle, Vector3 scale) {
+        Matrix4x4 m = new Matrix4x4();
+        m = GetTranslationMatrix(position).Multiply(SetRotation(axis, angle), GetScaleMatrix(scale));
+        return m;
+    }
+
+    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Matrix4x4 rotaion, Vector3 scale) {
+        Matrix4x4 m = new Matrix4x4();
+        m = GetTranslationMatrix(position).Multiply(rotaion, GetScaleMatrix(scale));
+        return m;
     }
 
     public static Vector3 ExtractPosition(this Matrix4x4 matrix) {
