@@ -7,10 +7,11 @@ public class Cube : MonoBehaviour {
 
     private Vector3 startPosition = new Vector3(0, 0, 0);
     private Matrix4x4 target;
-    [SerializeField ]private Matrix4x4 matrix = Matrix4x4.identity;
-
+    private Matrix4x4 identity = Matrix4x4.identity;
+    [SerializeField] private Matrix4x4 rotationMatrix = Matrix4x4.identity;
     [SerializeField] private Vector3 targetPosition = new Vector3(0, 0, 0);
-    [SerializeField] private Vector3 targetRotation = new Vector3(0, 0, 0);
+    [SerializeField] private Vector3 targetAxis = new Vector3(0, 0, 0);
+    [SerializeField] private float targetAngle = 0f;
     [SerializeField] private Vector3 targetScale = new Vector3(10, 10, 10);
 
 
@@ -40,10 +41,10 @@ public class Cube : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
-        if(matrix.Equals(Matrix4x4.identity)) {
-            target = matrix.Get_TRS_Matrix(targetPosition, targetRotation, targetScale);
+        if(rotationMatrix.Equals(Matrix4x4.identity)) {
+            target = Matrix4x4Extensions.Get_TRS_Matrix(targetPosition, targetAxis, targetAngle, targetScale);
         } else {
-            target = matrix;
+            target = Matrix4x4Extensions.Get_TRS_Matrix(targetPosition, rotationMatrix, targetScale);
         }
         transform.FromMatrix(target);
         target = target.Transpose();

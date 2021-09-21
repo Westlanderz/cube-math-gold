@@ -19,37 +19,47 @@ public static class Matrix4x4Extensions {
                              new Vector4(0, 0, 0, 1));
     }
 
-    public static Matrix4x4 GetRotationMatrix(Vector3 rotation) {
-        rotation = new Vector3(ConvertDegreesToRadians(rotation.x), ConvertDegreesToRadians(rotation.y), ConvertDegreesToRadians(rotation.z));
-
-        float cosX = (float)Mathf.Cos(rotation.x);
-        float sinX = (float)Mathf.Sin(rotation.x);
-        float cosY = (float)Mathf.Cos(rotation.y);
-        float sinY = (float)Mathf.Sin(rotation.y);
-        float cosZ = (float)Mathf.Cos(rotation.z);
-        float sinZ = (float)Mathf.Sin(rotation.z);
-
-        Matrix4x4 rotationMatrixX = new Matrix4x4(new Vector4(1, 0, 0, 0),
-                                                  new Vector4(0, cosX, sinX, 0),
-                                                  new Vector4(0, -sinX, cosX, 0),
-                                                  new Vector4(0, 0, 0, 1));
-
-        Matrix4x4 rotationMatrixY = new Matrix4x4(new Vector4(cosY, 0, -sinY, 0),
-                                                  new Vector4(0, 1, 0, 0),
-                                                  new Vector4(sinY, 0, cosY, 0),
-                                                  new Vector4(0, 0, 0, 1));
-
-        Matrix4x4 rotationMatrixZ = new Matrix4x4(new Vector4(cosZ, sinZ, 0, 0),
-                                                  new Vector4(-sinZ, cosZ, 0, 0),
-                                                  new Vector4(0, 0, 1, 0),
-                                                  new Vector4(0, 0, 0, 1));
-
-        return rotationMatrixX.Multiply(rotationMatrixY, rotationMatrixZ);
+    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Vector3 axis, float angle, Vector3 scale) {
+        Matrix4x4 m = new Matrix4x4();
+        m = GetTranslationMatrix(position).Multiply(SetRotation(axis, angle), GetScaleMatrix(scale));
+        return m;
     }
 
-    public static Matrix4x4 Get_TRS_Matrix(this Matrix4x4 m, Vector3 position, Vector3 rotation, Vector3 scale) {
-        m = GetTranslationMatrix(position).Multiply(GetRotationMatrix(rotation), GetScaleMatrix(scale));
+    public static Matrix4x4 Get_TRS_Matrix(Vector3 position, Matrix4x4 rotaion, Vector3 scale) {
+        Matrix4x4 m = new Matrix4x4();
+        m = GetTranslationMatrix(position).Multiply(rotaion, GetScaleMatrix(scale));
         return m;
+    }
+
+    public static Matrix4x4 SetRotation(Vector3 axis, float angle) {
+        // rotaion matrix from axis-angle
+        Matrix4x4 R = new Matrix4x4();
+
+        angle = ConvertDegreesToRadians(angle);
+
+        float cosAngle = (float)Mathf.Cos(angle);
+        float sinAngle = (float)Mathf.Sin(angle);
+
+        axis = axis.normalized;
+
+        R.m00 = cosAngle + axis.x * axis.x * (1 - cosAngle);
+        R.m01 = axis.x * axis.y * (1 - cosAngle) - axis.z * sinAngle;
+        R.m02 = axis.x * axis.z * (1 - cosAngle) + axis.y * sinAngle;
+        R.m03 = 0;
+        R.m10 = axis.y * axis.x * (1 - cosAngle) + axis.z * sinAngle;
+        R.m11 = cosAngle + axis.y * axis.y * (1 - cosAngle);
+        R.m12 = axis.y * axis.z * (1 - cosAngle) - axis.x * sinAngle;
+        R.m13 = 0;
+        R.m20 = axis.z * axis.x * (1 - cosAngle) - axis.y * sinAngle;
+        R.m21 = axis.z * axis.y * (1 - cosAngle) + axis.x * sinAngle;
+        R.m22 = cosAngle + axis.z * axis.z * (1 - cosAngle);
+        R.m23 = 0;
+        R.m30 = 0;
+        R.m31 = 0;
+        R.m32 = 0;
+        R.m33 = 1;
+        
+        return R;
     }
 
     public static Vector3 ExtractPosition(this Matrix4x4 matrix) {
