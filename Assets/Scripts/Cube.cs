@@ -8,6 +8,7 @@ public class Cube : MonoBehaviour {
     private Vector3 startPosition = new Vector3(0, 0, 0);
     private Matrix4x4 target;
     private Matrix4x4 identity = Matrix4x4.identity;
+    private int speed = 30;
     [SerializeField] private Matrix4x4 rotationMatrix = Matrix4x4.identity;
     [SerializeField] private Vector3 targetPosition = new Vector3(0, 0, 0);
     [SerializeField] private Vector3 targetAxis = new Vector3(0, 0, 0);
@@ -48,10 +49,40 @@ public class Cube : MonoBehaviour {
         }
         transform.FromMatrix(target);
         target = target.Transpose();
+    }
+
+    void Update() {
+        HandleInput();
+        UpdateUI();
+    }
+
+    void UpdateUI() {
         for(int i = 0; i < matrixUI.Count; i++) {
             Text text = matrixUI[i].GetComponent<Text>();
             string str = target[i/4, i%4].ToString();
             text.text = str;
+        }
+    }
+
+    void HandleInput() {
+        if(Input.GetKey(KeyCode.Z)) {
+            targetAxis = new Vector3(1, 0, 0);
+            targetAngle += speed * Time.deltaTime;
+        } else if(Input.GetKey(KeyCode.C)) {
+            targetAxis = new Vector3(1, 0, 0);
+            targetAngle += -speed * Time.deltaTime;
+        } else if(Input.GetKey(KeyCode.A)) {
+            targetAxis = new Vector3(0, 1, 0);
+            targetAngle += speed * Time.deltaTime;
+        } else if(Input.GetKey(KeyCode.D)) {
+            targetAxis = new Vector3(0, 1, 0);
+            targetAngle += -speed * Time.deltaTime;
+        } else if(Input.GetKey(KeyCode.Q)) {
+            targetAxis = new Vector3(0, 0, 1);
+            targetAngle += speed * Time.deltaTime;
+        } else if(Input.GetKey(KeyCode.E)) {
+            targetAxis = new Vector3(0, 0, 1);
+            targetAngle += -speed * Time.deltaTime;
         }
     }
 }
