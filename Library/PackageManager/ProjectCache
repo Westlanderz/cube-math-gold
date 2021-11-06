@@ -20,7 +20,7 @@ m_EmbeddedPackageManifests:
 m_LocalPackages:
   m_LocalFileStatus: []
 m_ProjectPath: /home/noah/Documents/Projects/Cube achievement gold/Packages
-m_EditorVersion: 2022.1.0a7 (c277161121c6)
+m_EditorVersion: 2022.1.0a8 (a6d7f27874c0)
 m_ResolvedPackages:
 - packageId: com.unity.collab-proxy@1.9.0
   testable: 0
@@ -68,6 +68,10 @@ m_ResolvedPackages:
     - 1.7.1
     - 1.8.0
     - 1.9.0
+    - 1.10.2
+    - 1.11.2
+    - 1.12.5
+    - 1.13.5
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -80,6 +84,10 @@ m_ResolvedPackages:
     - 2.1.0-preview.6
     compatible:
     - 1.9.0
+    - 1.10.2
+    - 1.11.2
+    - 1.12.5
+    - 1.13.5
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -315,7 +323,6 @@ m_ResolvedPackages:
     - 1.2.3
     - 1.2.4
     compatible:
-    - 1.2.3
     - 1.2.4
     verified: 1.2.4
   dependencies: []
@@ -340,7 +347,7 @@ m_ResolvedPackages:
     revision: 1f4f605d5c988cb610c372b5c5216c46cc8f5d30
     path: 
   unityLifecycle:
-    version: 1.2.3
+    version: 1.2.4
     nextVersion: 
 - packageId: com.unity.test-framework@1.1.29
   testable: 0
@@ -393,9 +400,11 @@ m_ResolvedPackages:
     - 1.1.26
     - 1.1.27
     - 1.1.29
+    - 1.1.30
     compatible:
     - 1.1.29
-    verified: 1.1.29
+    - 1.1.30
+    verified: 1.1.30
   dependencies:
   - name: com.unity.ext.nunit
     version: 1.0.6
@@ -679,9 +688,11 @@ m_ResolvedPackages:
     - 1.6.0-pre.5
     - 1.6.1
     - 1.6.2
+    - 1.6.3
     compatible:
     - 1.6.2
-    verified: 1.6.2
+    - 1.6.3
+    verified: 1.6.3
   dependencies:
   - name: com.unity.modules.director
     version: 1.0.0
@@ -916,9 +927,13 @@ m_ResolvedPackages:
     - 1.7.1
     - 1.7.2
     - 1.7.3
+    - 1.7.5
+    - 1.8.0-pre.1
     compatible:
     - 1.7.3
-    verified: 1.7.3
+    - 1.7.5
+    - 1.8.0-pre.1
+    verified: 1.7.5
   dependencies:
   - name: com.unity.ugui
     version: 1.0.0

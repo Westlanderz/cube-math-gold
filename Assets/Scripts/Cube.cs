@@ -14,6 +14,11 @@ public class Cube : MonoBehaviour {
     [SerializeField] private Vector3 targetAxis = new Vector3(0, 0, 0);
     [SerializeField] private float targetAngle = 0f;
     [SerializeField] private Vector3 targetScale = new Vector3(10, 10, 10);
+    [SerializeField] private GameObject parentOfInputFields;
+    [SerializeField] private Button inputSet;
+
+    private Vector3 inputAxis;
+    private float inputAngle;
 
 
     private List<GameObject> matrixUI = new List<GameObject>();
@@ -22,6 +27,7 @@ public class Cube : MonoBehaviour {
     void Awake() {
         transform.position = startPosition;
         target = Matrix4x4.identity;
+
         matrixUI.Add(GameObject.Find("matrix00"));
         matrixUI.Add(GameObject.Find("matrix01"));
         matrixUI.Add(GameObject.Find("matrix02"));
@@ -38,6 +44,8 @@ public class Cube : MonoBehaviour {
         matrixUI.Add(GameObject.Find("matrix31"));
         matrixUI.Add(GameObject.Find("matrix32"));
         matrixUI.Add(GameObject.Find("matrix33"));
+
+        inputSet.onClick.AddListener(SetAxisAngleUI);
     }
 
     // Update is called once per frame
@@ -65,24 +73,49 @@ public class Cube : MonoBehaviour {
     }
 
     void HandleInput() {
+        inputAxis = new Vector3(0, 0, 0);
         if(Input.GetKey(KeyCode.Z)) {
-            targetAxis = new Vector3(1, 0, 0);
-            targetAngle += speed * Time.deltaTime;
-        } else if(Input.GetKey(KeyCode.C)) {
-            targetAxis = new Vector3(1, 0, 0);
-            targetAngle += -speed * Time.deltaTime;
-        } else if(Input.GetKey(KeyCode.A)) {
-            targetAxis = new Vector3(0, 1, 0);
-            targetAngle += speed * Time.deltaTime;
-        } else if(Input.GetKey(KeyCode.D)) {
-            targetAxis = new Vector3(0, 1, 0);
-            targetAngle += -speed * Time.deltaTime;
-        } else if(Input.GetKey(KeyCode.Q)) {
-            targetAxis = new Vector3(0, 0, 1);
-            targetAngle += speed * Time.deltaTime;
-        } else if(Input.GetKey(KeyCode.E)) {
-            targetAxis = new Vector3(0, 0, 1);
-            targetAngle += -speed * Time.deltaTime;
+            inputAxis.x = +1;
         }
+        if(Input.GetKey(KeyCode.C)) {
+            inputAxis.x = -1;
+        }
+        if(Input.GetKey(KeyCode.A)) {
+            inputAxis.y = +1;
+        }
+        if(Input.GetKey(KeyCode.D)) {
+            inputAxis.y = -1;
+        }
+        if(Input.GetKey(KeyCode.Q)) {
+            inputAxis.z = +1;
+        }
+        if(Input.GetKey(KeyCode.E)) {
+            inputAxis.z = -1;
+        }
+
+        if(inputAxis.GetLength() > 0) {
+            inputAngle += speed * Time.deltaTime;
+            targetAxis = Vector3Extensions.NormalizedVector(inputAxis);
+            targetAngle = inputAngle;
+        }
+    }
+
+    void SetAxisAngleUI() {
+        int i = 0;
+        string[] inputs = new string[4];
+        InputField[] inputfields = parentOfInputFields.GetComponentsInChildren<InputField>();
+        
+        foreach(InputField input in inputfields) {
+            inputs[i] = input.text;
+            i++;
+        }
+
+        float x, y, z;
+        float.TryParse(inputs[0], out x);
+        float.TryParse(inputs[1], out y);
+        float.TryParse(inputs[2], out z);
+        targetAxis = new Vector3(x, y, z);
+
+        float.TryParse(inputs[3], out targetAngle);
     }
 }
