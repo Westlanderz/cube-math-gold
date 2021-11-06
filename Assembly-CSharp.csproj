@@ -36,11 +36,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets/Scripts/Vector3Extensions.cs" />
      <Compile Include="Assets/Scripts/ITransformable.cs" />
      <Compile Include="Assets/Scripts/MatrixExtensions.cs" />
      <Compile Include="Assets/Scripts/TransformExtensions.cs" />
      <Compile Include="Assets/Scripts/Cube.cs" />
-     <Compile Include="Assets/Scripts/Vector3Extensions.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/noah/Documents/unity/2022.1.0a8/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
